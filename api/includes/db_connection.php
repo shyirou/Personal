@@ -1,20 +1,21 @@
 <?php
-// Konfigurasi database
-$host = 'db.ivptfdcevuwebxwkxlud.supabase.co';
-$port = '5432';
-$dbname = 'postgres';
-$user = 'postgres';
-$password = 'R4GlROXheGBZN7Ef';
-
 try {
-    // Membuat string DSN
-    $dsn = "pgsql:host=$host;port=$port;dbname=$dbname;sslmode=require";
-    
-    // Membuat koneksi PDO
-    $conn = new PDO($dsn, $user, $password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // Menyusun URL koneksi
+    $dsn = "pgsql:host=ep-tiny-wildflower-a1zcicy3.ap-southeast-1.aws.neon.tech;port=5432;dbname=porfolio";
+    $username = "porfolio_owner";
+    $password = "ds5efRBEOQD1";
 
-    return $conn;
+    // Menyambungkan ke database
+    $pdo = new PDO($dsn, $username, $password, array(
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+    ));
+
+    // Mengaktifkan SSL (Jika diperlukan)
+    $pdo->exec("SET sslmode = 'require'");
+
+    echo "Koneksi berhasil!";
 } catch (PDOException $e) {
     echo "Koneksi gagal: " . $e->getMessage();
 }
+?>
