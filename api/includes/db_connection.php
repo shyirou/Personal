@@ -1,24 +1,24 @@
 <?php
-// Mengatur parameter koneksi
+// Konfigurasi database
 $host = 'db.ivptfdcevuwebxwkxlud.supabase.co';
-$port = '6543'; // using the specified port
+$port = '5432';
 $dbname = 'postgres';
 $user = 'postgres';
 $password = 'R4GlROXheGBZN7Ef';
+$sslmode = 'require';
 
-// Membuka koneksi ke database menggunakan MySQLi dengan exception handling
 try {
-    $conn = new mysqli($host, $user, $password, $dbname, $port);
-    
-    // Memeriksa koneksi
-    if ($conn->connect_error) {
-        throw new Exception("Koneksi gagal: " . $conn->connect_error);
-    } else {
-        echo "Koneksi ke database berhasil!";
-    }
-} catch (mysqli_sql_exception $e) {
-    die("Koneksi gagal: " . $e->getMessage());
-} catch (Exception $e) {
-    die("Koneksi gagal: " . $e->getMessage());
+    // Membuat string DSN (Data Source Name)
+    $dsn = "pgsql:host=$host;port=$port;dbname=$dbname;sslmode=$sslmode";
+
+    // Membuat koneksi PDO
+    $pdo = new PDO($dsn, $user, $password);
+
+    // Set error mode agar mudah debug jika terjadi kesalahan
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    echo "Koneksi berhasil!";
+} catch (PDOException $e) {
+    // Menangkap error dan menampilkan pesan
+    echo "Koneksi gagal: " . $e->getMessage();
 }
-?>
