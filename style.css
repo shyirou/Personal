@@ -1,0 +1,46 @@
+body {
+    background-color: #111111;
+    color: #f8f9fa;
+    min-height: 100vh; /* Ensure body takes full height */
+    display: flex;
+    flex-direction: column; /* Allow footer to be at the bottom */
+}
+.navbar {
+    background-color: #222222;
+}
+.footer {
+    background-color: #222222;
+    color: #bbbbbb;
+    padding: 20px 0;
+    margin-top: auto; /* Push footer to the bottom */
+}
+.container {
+    max-width: 800px; /* Batasi lebar container */
+    margin: auto; /* Tambahkan margin untuk mengatur jarak dari sisi kiri dan kanan */
+    padding: 0 20px; /* Tambahkan padding untuk mengatur jarak dari sisi kiri dan kanan */
+}
+.project-detail {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: calc(100vh - 100px); /* Adjust height as needed */
+}
+.card {
+    background-color: #222222;
+    border: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative; /* Ensure positioning for icon */
+}
+.card:hover {
+    transform: translateY(-10px); /* Move up instead of scaling */
+}
+.btn-primary {
+    background-color: #6c63ff;  
+    border: none;
+}
+.btn-primary:hover {
+    background-color: #5751d4;
+}
+.icon-large {
+    font-size: 1rem; /* Increase icon size */
+}
