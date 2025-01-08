@@ -6,21 +6,15 @@ $dbname = 'postgres';
 $user = 'postgres';
 $password = 'R4GlROXheGBZN7Ef';
 
-// Membuat string koneksi
-$conn_string = "host=$host port=$port dbname=$dbname user=$user password=$password";
-
-// Membuka koneksi ke database
-$conn = pg_connect($conn_string);
+// Membuka koneksi ke database menggunakan MySQLi
+$conn = new mysqli($host, $user, $password, $dbname, $port);
 
 // Memeriksa koneksi
-if ($conn) {
-    echo "Koneksi ke database berhasil!";
+if ($conn->connect_error) {
+    die("Koneksi gagal: " . $conn->connect_error);
 } else {
-    echo "Koneksi gagal: " . pg_last_error();
+    echo "Koneksi ke database berhasil!";
 }
-
-// Menutup koneksi
-pg_close($conn);
 ?>
 
 
