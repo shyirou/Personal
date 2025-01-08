@@ -6,39 +6,40 @@ $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
 // Periksa apakah ID valid
 if ($id > 0) {
-    // Siapkan SQL untuk menghapus proyek
-    $sql = "DELETE FROM projects WHERE id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $id);
-    
-    // Eksekusi dan periksa hasil
-    if ($stmt->execute()) {
-        // Hapus file thumbnail jika ada
-        $sqlFile = "SELECT thumbnail FROM projects WHERE id = ?";
-        $stmtFile = $conn->prepare($sqlFile);
-        $stmtFile->bind_param("i", $id);
-        $stmtFile->execute();
-        $resultFile = $stmtFile->get_result();
+    try {
+        // Siapkan SQL untuk menghapus proyek
+        $sql = "DELETE FROM projects WHERE id = :id";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
         
-        if ($resultFile->num_rows > 0) {
-            $rowFile = $resultFile->fetch_assoc();
-            $thumbnailPath = '../uploads/' . $rowFile['thumbnail'];
-            if (file_exists($thumbnailPath)) {
-                unlink($thumbnailPath); // Hapus file thumbnail
+        // Eksekusi dan periksa hasil
+        if ($stmt->execute()) {
+            // Hapus file thumbnail jika ada
+            $sqlFile = "SELECT thumbnail FROM projects WHERE id = :id";
+            $stmtFile = $conn->prepare($sqlFile);
+            $stmtFile->bindValue(':id', $id, PDO::PARAM_INT);
+            $stmtFile->execute();
+            $resultFile = $stmtFile->fetch(PDO::FETCH_ASSOC);
+            
+            if ($resultFile) {
+                $thumbnailPath = '../uploads/' . $resultFile['thumbnail'];
+                if (file_exists($thumbnailPath)) {
+                    unlink($thumbnailPath); // Hapus file thumbnail
+                }
             }
+            
+            echo "<script>alert('Proyek berhasil dihapus.');</script>";
+        } else {
+            echo "<script>alert('Terjadi kesalahan saat menghapus proyek.');</script>";
         }
-        $stmtFile->close();
-        
-        echo "<script>alert('Proyek berhasil dihapus.');</script>";
-    } else {
-        echo "<script>alert('Terjadi kesalahan saat menghapus proyek.');</script>";
+    } catch (PDOException $e) {
+        echo "<script>alert('Terjadi kesalahan: " . $e->getMessage() . "');</script>";
     }
-    $stmt->close();
 } else {
     echo "<script>alert('ID tidak valid.');</script>";
 }
 
-// Redirect kembali ke halaman utama setelah beberapa detik
+// Redirect kembali ke halaman utama
 header("Location: ../index.php");
 exit();
 ?>

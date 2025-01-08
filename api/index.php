@@ -36,7 +36,6 @@ if (!$result) {
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#about">About Me</a></li>
                     <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
                 </ul>
             </div>
@@ -96,11 +95,11 @@ if (!$result) {
                 <a href="portfolio/add.php" class="btn btn-primary">Add Works</a>
             </div>
             <div class="row row-cols-1 row-cols-md-2 g-4"> <!-- Changed to 4 columns -->
-                <?php if ($result->num_rows > 0): ?>
+                <?php if ($result->rowCount() > 0): ?>
                     <?php 
                     // Fetch all rows into an array
                     $projects = [];
-                    while ($row = $result->fetch_assoc()) {
+                    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                         $projects[] = $row;
                     }
                     // Display the projects in the original order

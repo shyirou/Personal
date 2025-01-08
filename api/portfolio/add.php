@@ -1,33 +1,37 @@
 <?php
 include '../includes/db_connection.php';
 
+// Ensure you're using PDO's methods
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $title = mysqli_real_escape_string($conn, $_POST['title']);
-    $description = mysqli_real_escape_string($conn, $_POST['description']);
-    $video_url = mysqli_real_escape_string($conn, $_POST['video_url']);
-
-    // Upload Thumbnail
+    $title = $_POST['title'];
+    $description = $_POST['description'];
     $thumbnail = $_FILES['thumbnail']['name'];
-    $thumbnail_tmp = $_FILES['thumbnail']['tmp_name'];
-    $thumbnail_target = '../uploads/' . basename($thumbnail);
-    
-    // Check if the file was uploaded successfully
-    if (move_uploaded_file($thumbnail_tmp, $thumbnail_target)) {
-        $sql = "INSERT INTO projects (title, description, thumbnail, video_url) VALUES (?, ?, ?, ?)";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssss", $title, $description, $thumbnail, $video_url);
-        if ($stmt->execute()) {
-            header('Location: ../index.php');
-            exit; // Ensure no further code is executed after redirection
-        } else {
-            echo "<p class='text-danger'>Error: " . $conn->error . "</p>";
-        }
-        $stmt->close();
+    $video_url = $_POST['video_url'];
+
+    // Move the uploaded thumbnail file
+    if ($thumbnail) {
+        move_uploaded_file($_FILES['thumbnail']['tmp_name'], '../uploads/' . $thumbnail);
+    }
+
+    // Prepare the SQL statement with named parameters
+    $sql = "INSERT INTO projects (title, description, thumbnail, video_url) VALUES (:title, :description, :thumbnail, :video_url)";
+    $stmt = $conn->prepare($sql);
+
+    // Bind the parameters using PDO's bindValue method
+    $stmt->bindValue(':title', $title, PDO::PARAM_STR);
+    $stmt->bindValue(':description', $description, PDO::PARAM_STR);
+    $stmt->bindValue(':thumbnail', $thumbnail, PDO::PARAM_STR);
+    $stmt->bindValue(':video_url', $video_url, PDO::PARAM_STR);
+
+    // Execute the prepared statement
+    if ($stmt->execute()) {
+        echo "<script>alert('Project added successfully.');</script>";
     } else {
-        echo "<p class='text-danger'>Error uploading thumbnail.</p>";
+        echo "<p>Error: " . implode(", ", $stmt->errorInfo()) . "</p>";
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,7 +51,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                <li class="nav-item"> <a class="nav-link" href="../index.php">About Me</a></li>
                 <li class="nav-item"> <a class="nav-link" href="../index.php">Portfolio</a></li>
                 </ul>
             </div>

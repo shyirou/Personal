@@ -1,19 +1,20 @@
 <?php
 include '../includes/db_connection.php';
 
+// Check if this is an edit or new project
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
-    $sql = "SELECT * FROM projects WHERE id = ?";
+    $sql = "SELECT * FROM projects WHERE id = :id"; // Use named parameter for PDO
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $id);
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT); // Bind the parameter using bindValue for PDO
     $stmt->execute();
-    $result = $stmt->get_result();
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-    } else {
+    $row = $stmt->fetch(PDO::FETCH_ASSOC); // Fetch the row
+    if (!$row) {
         echo "<p>Project not found.</p>";
         exit;
     }
+} else {
+    $id = null; // Handle new project creation when there's no ID   
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -26,18 +27,41 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         move_uploaded_file($_FILES['thumbnail']['tmp_name'], '../uploads/' . $thumbnail);
     }
 
-    $sql = "UPDATE projects SET title = ?, description = ?, thumbnail = ?, video_url = ? WHERE id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssssi", $title, $description, $thumbnail, $video_url, $id);
+    // If $id is null, this is an insert (new project)
+    if ($id === null) {
+        // Insert new project, do not include id
+        $sql = "INSERT INTO projects (title, description, thumbnail, video_url) VALUES (:title, :description, :thumbnail, :video_url)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(':title', $title, PDO::PARAM_STR);
+        $stmt->bindValue(':description', $description, PDO::PARAM_STR);
+        $stmt->bindValue(':thumbnail', $thumbnail, PDO::PARAM_STR);
+        $stmt->bindValue(':video_url', $video_url, PDO::PARAM_STR);
+    } else {
+        // Update existing project
+        $sql = "UPDATE projects SET title = :title, description = :description, thumbnail = :thumbnail, video_url = :video_url WHERE id = :id";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(':title', $title, PDO::PARAM_STR);
+        $stmt->bindValue(':description', $description, PDO::PARAM_STR);
+        $stmt->bindValue(':thumbnail', $thumbnail, PDO::PARAM_STR);
+        $stmt->bindValue(':video_url', $video_url, PDO::PARAM_STR);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    }
+
     if ($stmt->execute()) {
-        header('Location: view.php?id=' . $id); // Redirect to view.php after successful update
+        if ($id === null) {
+            // Get the ID of the newly inserted project
+            $id = $conn->lastInsertId();
+        }
+        header('Location: view.php?id=' . $id); // Redirect after successful update
         exit; // Ensure no further code is executed
     } else {
-        echo "<p>Error: " . $conn->error . "</p>";
+        echo "<p>Error: " . implode(", ", $stmt->errorInfo()) . "</p>"; // Use errorInfo() for PDO errors
     }
-    $stmt->close();
 }
 ?>
+
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -58,7 +82,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                <li class="nav-item"> <a class="nav-link" href="../index.php">About Me</a></li>
                 <li class="nav-item"> <a class="nav-link" href="../index.php">Portfolio</a></li>
                 </ul>
             </div>

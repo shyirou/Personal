@@ -6,14 +6,14 @@ $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
 // Check if ID is valid
 if ($id > 0) {
-    $sql = "SELECT * FROM projects WHERE id = ?";
+    $sql = "SELECT * FROM projects WHERE id = :id"; // Use named parameters for PDO
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $id);
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT); // Bind the ID parameter
     $stmt->execute();
-    $result = $stmt->get_result();
 
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
+    $row = $stmt->fetch(PDO::FETCH_ASSOC); // Fetch the project data
+    if ($row) {
+        // Project found, do something with $row
     } else {
         echo "<p>Project not found.</p>";
         exit;
@@ -23,6 +23,7 @@ if ($id > 0) {
     exit;
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -44,7 +45,6 @@ if ($id > 0) {
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"> <a class="nav-link" href="../index.php">About Me</a></li>
                     <li class="nav-item"> <a class="nav-link" href="../index.php">Portfolio</a></li>
                 </ul>
             </div>
