@@ -1,30 +1,28 @@
 <?php
-// Mengambil parameter koneksi dari POSTGRES_URL
-$postgres_url = "postgres://postgres.ivptfdcevuwebxwkxlud:R4GlROXheGBZN7Ef@aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres?sslmode=require&supa=base-pooler.x";
+// Mengatur parameter koneksi
+$host = 'db.ivptfdcevuwebxwkxlud.supabase.co';
+$port = '6543'; // using the specified port
+$dbname = 'postgres';
+$user = 'postgres';
+$password = 'R4GlROXheGBZN7Ef';
 
-// Memparse URL untuk mendapatkan informasi koneksi
-$parsed_url = parse_url($postgres_url);
+// Membuat string koneksi
+$conn_string = "host=$host port=$port dbname=$dbname user=$user password=$password";
 
-// Menyusun informasi koneksi
-$host = $parsed_url['host'];
-$port = $parsed_url['port'];
-$dbname = ltrim($parsed_url['path'], '/');
-$user = $parsed_url['user'];
-$password = $parsed_url['pass'];
+// Membuka koneksi ke database
+$conn = pg_connect($conn_string);
 
-try {
-    // Membuat koneksi dengan PDO
-    $dsn = "pgsql:host=$host;port=$port;dbname=$dbname";
-    $pdo = new PDO($dsn, $user, $password);
-
-    // Menyiapkan opsi PDO (untuk menangani error)
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
+// Memeriksa koneksi
+if ($conn) {
     echo "Koneksi ke database berhasil!";
-} catch (PDOException $e) {
-    echo "Koneksi gagal: " . $e->getMessage();
+} else {
+    echo "Koneksi gagal: " . pg_last_error();
 }
+
+// Menutup koneksi
+pg_close($conn);
 ?>
+
 
 
 
