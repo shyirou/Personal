@@ -12,13 +12,15 @@ try {
     $dsn = "pgsql:host=$host;port=$port;dbname=$dbname;sslmode=$sslmode";
 
     // Membuat koneksi PDO
-    $pdo = new PDO($dsn, $user, $password);
-
-    // Set error mode agar mudah debug jika terjadi kesalahan
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $conn = new PDO($dsn, $user, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     echo "Koneksi berhasil!";
+
+    // Contoh query sederhana
+    $query = $conn->query("SELECT version()");
+    $result = $query->fetch(PDO::FETCH_ASSOC);
+    print_r($result);
 } catch (PDOException $e) {
-    // Menangkap error dan menampilkan pesan
     echo "Koneksi gagal: " . $e->getMessage();
 }
