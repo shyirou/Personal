@@ -1,11 +1,11 @@
 <?php
 // Mendapatkan nilai dari environment variables
-$host = getenv('DB_HOST');
-$port = getenv('DB_PORT');
-$dbname = getenv('DB_NAME');
-$user = getenv('DB_USER');
-$password = getenv('DB_PASSWORD');
-$sslmode = getenv('DB_SSLMODE');
+$host = 'ep-tiny-wildflower-a1zcicy3.ap-southeast-1.aws.neon.tech';
+$port = '5432';
+$dbname = 'porfolio';
+$user = 'porfolio_owner';
+$password = 'ds5efRBEOQD1';
+$sslmode = 'require';
 
 try {
     // Membuat string koneksi PDO
