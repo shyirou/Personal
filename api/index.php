@@ -1,9 +1,19 @@
 <?php
 include 'includes/db_connection.php';
 
-// Query untuk mengambil semua proyek
+// Check if the connection was successful
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+// Query to fetch all projects
 $sql = "SELECT * FROM projects";
 $result = $conn->query($sql);
+
+// Check if the query was successful
+if (!$result) {
+    die("Query failed: " . $conn->error);
+}
 ?>
 
 <!DOCTYPE html>
