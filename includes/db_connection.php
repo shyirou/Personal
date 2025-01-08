@@ -1,13 +1,20 @@
 <?php
-$host = 'db.ivptfdcevuwebxwkxlud.supabase.co';
-$db = 'postgres';
-$user = 'postgres';
-$password = 'R4GlROXheGBZN7Ef';
-$port = '6543';
+// Mengambil parameter koneksi dari POSTGRES_URL
+$postgres_url = "postgres://postgres.ivptfdcevuwebxwkxlud:R4GlROXheGBZN7Ef@aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres?sslmode=require&supa=base-pooler.x";
+
+// Memparse URL untuk mendapatkan informasi koneksi
+$parsed_url = parse_url($postgres_url);
+
+// Menyusun informasi koneksi
+$host = $parsed_url['host'];
+$port = $parsed_url['port'];
+$dbname = ltrim($parsed_url['path'], '/');
+$user = $parsed_url['user'];
+$password = $parsed_url['pass'];
 
 try {
     // Membuat koneksi dengan PDO
-    $dsn = "pgsql:host=$host;dbname=$dbname";
+    $dsn = "pgsql:host=$host;port=$port;dbname=$dbname";
     $pdo = new PDO($dsn, $user, $password);
 
     // Menyiapkan opsi PDO (untuk menangani error)
@@ -17,8 +24,8 @@ try {
 } catch (PDOException $e) {
     echo "Koneksi gagal: " . $e->getMessage();
 }
-
 ?>
+
 
 
 <?php   
