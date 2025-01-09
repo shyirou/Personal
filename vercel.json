@@ -22,7 +22,7 @@
       "dest": "/public/uploads/$1"
     },
     { 
-      "src": "index.php",
+      "src": "/api/index.php",
       "dest": "/public/index.php"
     },
     { 
