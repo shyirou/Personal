@@ -40,6 +40,17 @@
       {
         "src": "/pages/404.php",
         "dest": "/public/pages/404.php"
+      },      {
+        "src": "/procces/add.php",
+        "dest": "/public/procces/add.php"
+      },  
+      {
+        "src": "/procces/edit.php",
+        "dest": "/public/procces/edit.php"
+      },
+      {
+        "src": "/procces/delete.php",
+        "dest": "/public/procces/delete.php"
       },
       {
         "src": "/(.*)",
