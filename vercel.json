@@ -44,5 +44,13 @@
       "src": "api/php.ini",
       "dest": "/api/php.ini"
     }
-  ]
+  ],
+  "env": {
+    "PG_HOST": "ep-tiny-wildflower-a1zcicy3.ap-southeast-1.aws.neon.tech",
+    "PG_PORT": "5432",
+    "PG_DB": "porfolio",  
+    "PG_USER": "porfolio_owner",
+    "PG_PASSWORD": "ds5efRBEOQD1",
+    "PG_ENDPOINT": "ep-tiny-wildflower-a1zcicy3"
+  }
 }
