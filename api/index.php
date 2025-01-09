@@ -3,18 +3,28 @@ include 'includes/db_connection.php';
 
 // Check if the connection was successful
 if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
+    die("Connection failed: Unable to connect to the database.");
 }
 
 // Query to fetch all projects
 $sql = "SELECT * FROM projects";
-$result = $conn->query($sql);
+$result = pg_query($conn, $sql);
 
 // Check if the query was successful
 if (!$result) {
-    die("Query failed: " . $conn->error);
+    die("Query failed: " . pg_last_error($conn));
 }
+
+// Fetch and display the projects (example output)
+while ($row = pg_fetch_assoc($result)) {
+    echo "Project ID: " . $row['id'] . " - Name: " . $row['name'] . "<br>";
+}
+
+// Free result and close the connection
+pg_free_result($result);
+pg_close($conn);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
