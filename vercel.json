@@ -10,15 +10,15 @@
       "dest": "/api/index.php"
     },
     { 
-      "src": "style.css",
+      "src": "public/style.css",
       "dest": "/public/style.css"
     },
     { 
-      "src": "uploads/(.*)png",
+      "src": "public/uploads/(.*)png",
       "dest": "/public/uploads/$1"
     },
     { 
-      "src": "uploads/(.*)jpg",
+      "src": "public/uploads/(.*)jpg",
       "dest": "/public/uploads/$1"
     },
     { 
@@ -26,19 +26,19 @@
       "dest": "/public/index.php"
     },
     { 
-      "src": "portfolio/add.php",
+      "src": "public/portfolio/add.php",
       "dest": "/public/portfolio/add.php"
     },
     { 
-      "src": "portfolio/delete.php",
+      "src": "public/portfolio/delete.php",
       "dest": "/public/portfolio/delete.php"
     },
     { 
-      "src": "portfolio/edit.php",
+      "src": "public/portfolio/edit.php",
       "dest": "/public/portfolio/edit.php"
     },
     { 
-      "src": "includes/db_connection.php",
+      "src": "public/includes/db_connection.php",
       "dest": "/public/includes/db_connection.php"
     }
   ]
