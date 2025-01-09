@@ -13,11 +13,7 @@ $result = pg_query($conn, $sql);
 // Check if the query was successful
 if (!$result) {
     die("Query failed: " . pg_last_error($conn));
-}}
-
-// Free result and close the connection
-pg_free_result($result);
-pg_close($conn);
+}
 ?>
 
 
