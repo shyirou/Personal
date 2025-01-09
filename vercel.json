@@ -4,44 +4,6 @@
       "runtime": "vercel-php@0.7.2"
     }
   },
-  "routes": [
-    { 
-      "src": "/(.*)",
-      "dest": "/api/index.php"
-    },
-    { 
-      "src": "/style.css",
-      "dest": "/public/style.css" 
-    },
-    { 
-      "src": "/uploads/(.*)png",
-      "dest": "/public/uploads/$1"
-    },
-    { 
-      "src": "/uploads/(.*)jpg",
-      "dest": "/public/uploads/$1"
-    },
-    { 
-      "src": "/api/index.php",
-      "dest": "/api/index.php"
-    },
-    { 
-      "src": "/pages/add.php",
-      "dest": "/public/pages/add.php"
-    },
-    { 
-      "src": "/pages/delete.php",
-      "dest": "/public/pages/delete.php"
-    },
-    { 
-      "src": "/pages/edit.php",
-      "dest": "/public/pages/edit.php"
-    },
-    { 
-      "src": "/database/db.php",
-      "dest": "/public/database/db.php"
-    }
-  ],
   "env": {
     "PG_HOST": "ep-tiny-wildflower-a1zcicy3.ap-southeast-1.aws.neon.tech",
     "PG_PORT": "5432",

@@ -1,18 +1,26 @@
 body {
     background-color: #111111;
     color: #f8f9fa;
-    min-height: 100vh; /* Ensure body takes full height */
     display: flex;
     flex-direction: column; /* Allow footer to be at the bottom */
+    min-height: 100vh; /* Ensure the body takes at least the full viewport height */
 }
 .navbar {
     background-color: #222222;
 }
+
+p, h1, h2, h3, h4, h5, h6 {
+    margin: 12px 0 12px;
+}
 .footer {
     background-color: #222222;
     color: #bbbbbb;
-    padding: 20px 0;
-    margin-top: auto; /* Push footer to the bottom */
+    margin: 0; /* Set margin to 0 */
+    padding: 8px 0; /* Adjust padding for consistency */
+    text-align: center; /* Center the text in the footer */
+    position: relative; /* Ensure footer is positioned relative */
+    bottom: 0; /* Stick footer to the bottom */
+    width: 100%; /* Full width for the footer */
 }
 .container {
     max-width: 800px; /* Batasi lebar container */
@@ -23,7 +31,6 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: calc(100vh - 100px); /* Adjust height as needed */
 }
 .card {
     background-color: #222222;
@@ -33,6 +40,7 @@ body {
 }
 .card:hover {
     transform: translateY(-10px); /* Move up instead of scaling */
+    box-shadow: 0 20px 10px rgba(0, 0, 0, 0.3); /* Add shadow effect */
 }
 .btn-primary {
     background-color: #6c63ff;  

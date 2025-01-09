@@ -30,17 +30,9 @@ $projectCount = pg_num_rows($result);
 </head>
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container">
-            <a class="navbar-brand" href="#">Roid Works!</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
-                </ul>
-            </div>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="font-size: 12px;">
+        <div style="margin: auto;">
+            <a class="navbar-brand" href="/home">Roid Works!</a>
         </div>
     </nav>
 
@@ -50,26 +42,31 @@ $projectCount = pg_num_rows($result);
             <h1 class="display-4">Hello, I'm Roid <br> An Independent Designer</h1>
             <p class="lead" style="opacity: 0.5;">Motion Graphic Designer | Motion Video Animator 🛠️</p>
             <!-- Social Media Icons -->
-                <div class="social-icons mt-2"> <!-- Decrease margin to bring sections closer -->
+                <div class="social-icons mt-2; margin: 0;"> <!-- Decrease margin to bring sections closer -->
                     <a href="https://www.youtube.com/@shyirou" target="_blank" class="text-light me-3" style="opacity: 0.5;"><i class="fa-brands fa-youtube icon-large"></i></a>
                     <a href="https://x.com/shyirouu" target="_blank" class="text-light me-3" style="opacity: 0.5;"><i class="fa-brands fa-x-twitter icon-large"></i></a>
                     <a href="https://www.instagram.com/shyirou" target="_blank" class="text-light me-3" style="opacity: 0.5;"><i class="fa-brands fa-instagram icon-large"></i></a>
                     <a href="https://github.com/shyirou" target="_blank" class="text-light" style="opacity: 0.5;"><i class="fa-brands fa-github icon-large"></i></a>
                 </div>
-                <hr>
+        </div>
+    </header>
+    
+    <div class="container">
+        <hr class="container">
+            <div class="container">
                 <p align="left">
                     <a href="https://discord.com/users/566507480788631552"><img src="https://lanyard.cnrad.dev/api/566507480788631552?borderRadius=20px&bg=transparent" alt="Discord" width="450"/></a>
                 </p>
-                <hr>
-        </div>
-    </header>
+            </div>
+        <hr class="container">
+    </div>
 
     <!-- Portfolio Section -->  
     <section id="portfolio" class="py-4"> <!-- Decrease padding to bring sections closer -->
         <div class="container">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h2 class="display-4">Related Projects</h2>
-                <a href="/?page=add" class  ="btn btn-primary">Add Works</a>
+                <a href="/add" class  ="btn btn-primary">Add Works</a>
             </div>
             <div class="row row-cols-1 row-cols-md-2 g-4"> <!-- Changed to 4 columns -->
                 <?php if ($projectCount > 0): ?>
@@ -82,10 +79,10 @@ $projectCount = pg_num_rows($result);
                     // Display the projects in the original order
                     foreach ($projects as $row): ?>
                         <div class="col">
-                            <div class="card h-100 text-light" style="background-color: #222; border: none; position: relative; overflow: hidden;" onclick="window.location='/?page=view&id=<?php echo $row['id']; ?>'">
-                                <img src="/uploads/<?php echo htmlspecialchars($row['thumbnail']); ?>" class="card-img-top" alt="Thumbnail" style="height: auto; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; transition: filter 0.3s ease; cursor: pointer;">
+                            <div class="card h-100 text-light" style="background-color: #222; border: none; position: relative; overflow: hidden;" onclick="window.location='/view/<?php echo $row['id']; ?>'">
+                                <img src="/uploads/<?php echo htmlspecialchars($row['thumbnail']); ?>" class="card-img-top" alt="Thumbnail" style="height: auto; aspect-ratio: 16 / 9; object-fit: cover; transition: filter 0.3s ease; cursor: pointer;">
                                 <div class="card-body">
-                                    <h5 class="card-title"><?php echo htmlspecialchars($row['title']); ?></h5>
+                                    <h5 class="card-title"><?php echo htmlspecialchars(substr($row['title'], 0, 50)) . '...'; ?></h5>
                                 </div>
                             </div>  
                         </div>
@@ -96,26 +93,10 @@ $projectCount = pg_num_rows($result);
             </div>
         </div>
     </section>
-    <?php
-    /*
-    <!-- Contact Section -->
-    <section id="contact" class="py-4">
-        <div class="container">
-            <h2 class="display-4">Contact Me</h2>
-            <p class="lead">For any questions or inquiries, please don't hesitate to reach out.</p>
-            <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                <a href="mailto:info@example.com" class="btn btn-primary me-md-2">Email Me</a>
-            </div>
-        </div>
-    </section>
-    */
-    ?>
 
     <!-- Footer -->
-    <footer class="footer text-center">
-        <div class="container">
-            <p>&copy; 2025 My Portfolio. All rights reserved.</p>
-        </div>
+    <footer class="footer">
+        <a>&copy; 2025 My Portfolio. All rights reserved.</a>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
