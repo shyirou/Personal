@@ -40,7 +40,7 @@
     { 
       "src": "/database/db.php",
       "dest": "/public/database/db.php"
-    }    
+    }
   ],
   "env": {
     "PG_HOST": "ep-tiny-wildflower-a1zcicy3.ap-southeast-1.aws.neon.tech",
