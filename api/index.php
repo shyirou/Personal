@@ -13,12 +13,7 @@ $result = pg_query($conn, $sql);
 // Check if the query was successful
 if (!$result) {
     die("Query failed: " . pg_last_error($conn));
-}
-
-// Fetch and display the projects (example output)
-while ($row = pg_fetch_assoc($result)) {
-    echo "Project ID: " . $row['id'] . " - Name: " . $row['name'] . "<br>";
-}
+}}
 
 // Free result and close the connection
 pg_free_result($result);
