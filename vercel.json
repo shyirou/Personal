@@ -10,36 +10,36 @@
       "dest": "/api/index.php"
     },
     { 
-      "src": "public/style.css",
-      "dest": "/public/style.css"
+      "src": "api/style.css",
+      "dest": "/api/style.css"
     },
     { 
-      "src": "public/uploads/(.*)png",
-      "dest": "/public/uploads/$1"
+      "src": "api/uploads/(.*)png",
+      "dest": "/api/uploads/$1"
     },
     { 
-      "src": "public/uploads/(.*)jpg",
-      "dest": "/public/uploads/$1"
+      "src": "api/uploads/(.*)jpg",
+      "dest": "/api/uploads/$1"
     },
     { 
-      "src": "/api/index.php",
-      "dest": "/public/index.php"
+      "src": "api/index.php",
+      "dest": "/api/index.php"
     },
     { 
-      "src": "public/portfolio/add.php",
-      "dest": "/public/portfolio/add.php"
+      "src": "api/portfolio/add.php",
+      "dest": "/api/portfolio/add.php"
     },
     { 
-      "src": "public/portfolio/delete.php",
-      "dest": "/public/portfolio/delete.php"
+      "src": "api/portfolio/delete.php",
+      "dest": "/api/portfolio/delete.php"
     },
     { 
-      "src": "public/portfolio/edit.php",
-      "dest": "/public/portfolio/edit.php"
+      "src": "api/portfolio/edit.php",
+      "dest": "/api/portfolio/edit.php"
     },
     { 
-      "src": "public/includes/db_connection.php",
-      "dest": "/public/includes/db_connection.php"
+      "src": "api/includes/db_connection.php",
+      "dest": "/api/includes/db_connection.php"
     }
   ]
 }
