@@ -10,7 +10,7 @@
         "dest": "/api/index.php"
       },
       {
-        "src": "style.css",
+        "src": "/style.css",
         "dest": "/public/style.css"
       },
       {
@@ -18,7 +18,7 @@
         "dest": "/public/uploads/$1"
       },
       {
-        "src": "uploads/(.*).jpg",
+        "src": "/uploads/(.*).jpg",
         "dest": "/public/uploads/$1"
       },
       {
