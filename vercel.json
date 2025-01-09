@@ -40,6 +40,9 @@
     { 
       "src": "api/includes/db_connection.php",
       "dest": "/api/includes/db_connection.php"
+    },    { 
+      "src": "api/php.ini",
+      "dest": "/api/php.ini"
     }
   ]
 }
