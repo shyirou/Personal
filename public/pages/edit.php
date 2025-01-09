@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../database/db.php';
+include'../database/db.php';
 
 // Check if this is an edit or new project
 if (isset($_GET['id'])) {
