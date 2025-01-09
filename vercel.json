@@ -41,8 +41,5 @@
       "src": "api/includes/db_connection.php",
       "dest": "/api/includes/db_connection.php"
     }
-  ],
-  "rewrites": [
-    { "source": "/(.*)", "destination": "http://127.0.0.1:3000" }
   ]
 }
