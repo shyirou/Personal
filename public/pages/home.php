@@ -1,5 +1,5 @@
 <?php
-include'../database/db.php';
+include __DIR__ . '/../database/db.php';
 // Check if the connection was successful
 if (!$conn) {
     die("Connection failed: Unable to connect to the database.");

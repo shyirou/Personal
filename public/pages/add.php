@@ -1,5 +1,5 @@
 <?php
-include'../database/db.php';
+include __DIR__ . '/../database/db.php';s
 
 // Ensure you're using PDO's methods
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
