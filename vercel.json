@@ -11,7 +11,7 @@
     },
     { 
       "src": "/style.css",
-      "dest": "/public/pages/css/style.css" 
+      "dest": "/public/style.css" 
     },
     { 
       "src": "/uploads/(.*)png",
