@@ -1,5 +1,5 @@
 <?php
-include __DIR__ . '/../database/db.php';
+require_once __DIR__ . '/../database/db.php';
 // Check if the connection was successful
 if (!$conn) {
     die("Connection failed: Unable to connect to the database.");
@@ -83,7 +83,7 @@ $projectCount = pg_num_rows($result);
                     foreach ($projects as $row): ?>
                         <div class="col">
                             <div class="card h-100 text-light" style="background-color: #222; border: none; position: relative; overflow: hidden;" onclick="window.location='/?page=view&id=<?php echo $row['id']; ?>'">
-                                <img src="../uploads/<?php echo htmlspecialchars($row['thumbnail']); ?>" class="card-img-top" alt="Thumbnail" style="height: auto; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; transition: filter 0.3s ease; cursor: pointer;">
+                                <img src="/uploads/<?php echo htmlspecialchars($row['thumbnail']); ?>" class="card-img-top" alt="Thumbnail" style="height: auto; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; transition: filter 0.3s ease; cursor: pointer;">
                                 <div class="card-body">
                                     <h5 class="card-title"><?php echo htmlspecialchars($row['title']); ?></h5>
                                 </div>

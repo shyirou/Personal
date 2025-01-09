@@ -1,5 +1,5 @@
 <?php
-include __DIR__ . '/../database/db.php';
+require_once __DIR__ . '/../database/db.php';
 
 // Get project ID from URL parameter
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
