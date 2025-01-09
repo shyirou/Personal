@@ -1,21 +1,24 @@
 <?php
-include '../includes/db_connection.php';
+require_once __DIR__ . '/../database/db.php';
 
 // Get project ID from URL parameter
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
 // Check if ID is valid
 if ($id > 0) {
-    $sql = "SELECT * FROM projects WHERE id = :id"; // Use named parameters for PDO
-    $stmt = $conn->prepare($sql);
-    $stmt->bindValue(':id', $id, PDO::PARAM_INT); // Bind the ID parameter
-    $stmt->execute();
+    $sql = "SELECT * FROM projects WHERE id = $1"; // Use positional parameters for pgsql
+    $result = pg_query_params($conn, $sql, array($id)); // Use pg_query_params to execute the query with parameters
 
-    $row = $stmt->fetch(PDO::FETCH_ASSOC); // Fetch the project data
-    if ($row) {
-        // Project found, do something with $row
+    if ($result) {
+        $row = pg_fetch_assoc($result); // Fetch the project data
+        if ($row) {
+            // Project found, do something with $row
+        } else {
+            echo "<p>Project not found.</p>";
+            exit;
+        }
     } else {
-        echo "<p>Project not found.</p>";
+        echo "<p>Error executing query.</p>";
         exit;
     }
 } else {
@@ -24,14 +27,13 @@ if ($id > 0) {
 }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="/css/style.css">
     <title>View Project</title>
 </head> 
 <body>
@@ -39,13 +41,13 @@ if ($id > 0) {
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
-            <a class="navbar-brand" href="../index.php">Roid Works!</a>
+            <a class="navbar-brand" href="/?page=home">Roid Works!</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"> <a class="nav-link" href="../index.php">Portfolio</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="/?page=home">Portfolio</a></li>
                 </ul>
             </div>
         </div>
@@ -64,7 +66,7 @@ if ($id > 0) {
                 <p class="text-light mt-4">No video URL provided.</p>
             <?php endif; ?> 
             <div class="mt-4">
-                <a href="edit.php?id=<?php echo $row['id']; ?>" class="btn btn-primary">Edit Work</a>
+                <a href="/?page=edit&id=<?php echo $row['id']; ?>" class="btn btn-primary">Edit Work</a>
             </div>
         </div>
     </div>

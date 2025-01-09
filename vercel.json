@@ -10,8 +10,8 @@
       "dest": "/api/index.php"
     },
     { 
-      "src": "api/style.css",
-      "dest": "/api/style.css"
+      "src": "style.css",
+      "dest": "public/style.css"
     },
     { 
       "src": "api/uploads/(.*)png",
