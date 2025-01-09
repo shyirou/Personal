@@ -103,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="container">
             <div class="project-detail">
                 <h1 class="display-4">Add New Project</h1>
-                <form action="/pages/add.php" method="POST" enctype="multipart/form-data">
+                <form action="add.php" method="POST" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="title" class="form-label">Title</label>
                         <input type="text" class="form-control" id="title" name="title" required>
