@@ -1,4 +1,7 @@
 <?php
+// Include the database connection file
+include '../database/db.php'; // Adjust the path if necessary
+
 // Ensure you're using PDO's methods
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $title = $_POST['title'];
@@ -12,17 +15,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Get the original file extension
         $file_extension = pathinfo($_FILES['thumbnail']['name'], PATHINFO_EXTENSION);
 
-        // Generate a random name for the file (ensure it always ends with .jpg)
-        $random_name = uniqid('thumbnail_', true) . '.jpg'; // Always save as .jpg
-        $custom_name = $_POST['custom_name'] . '.jpg'; // Ambil nama kustom dari input
+        // Use the original name for the thumbnail
+        $thumbnail = $_FILES['thumbnail']['name']; // Keep the original name
 
         // Define the target directory
         $target_dir = '../uploads/';
-        $target_file = $target_dir . $custom_name; // Gunakan nama kustom sebagai nama file
-
-        // Debugging: Print the generated random name and target file path
-        echo "Generated Random Filename: " . $random_name . "<br>";
-        echo "Target Path: " . $target_file . "<br>";
+        $target_file = $target_dir . $thumbnail; // Use the original name as the file name
 
         // Convert the image to JPG if it's not already in JPG format
         if (in_array(strtolower($file_extension), ['jpeg', 'jpg', 'png', 'gif'])) {
@@ -48,11 +46,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // Save the image as a JPG file
                 if (imagejpeg($image, $target_file, 90)) {
                     imagedestroy($image);
-                    // Store the filename for database insertion
-                    $thumbnail = $random_name;
-
-                    // Debugging: Check if the file was saved
-                    echo "Image successfully saved as: " . $random_name . "<br>";
                 } else {
                     echo "<p>Error: Failed to save image.</p>";
                     exit;
@@ -62,13 +55,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 exit;
             }
         } else {
-            echo "<p>Error: Unsupported file type.</p>";
+            echo "<p>Error: Unsupported file type.</p>";    
             exit;
         }
     }
-
-    // Debugging: Check if $thumbnail has been set correctly
-    echo "Thumbnail to store in database: " . $thumbnail . "<br>";
 
     // Prepare the SQL statement with named parameters using pg_query_params
     $sql = "INSERT INTO projects (title, description, thumbnail, video_url) VALUES ($1, $2, $3, $4)";

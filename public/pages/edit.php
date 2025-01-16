@@ -77,7 +77,7 @@ if (count($requestParts) > 2 || !empty($requestParts[2])) {
                     <a href="/procces/delete.php?id=<?= $row['id'] ?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this project?');">Delete</a>
                 </form>
             </div>
-        </div>
+        </div>  
 
 
     <!-- Footer -->

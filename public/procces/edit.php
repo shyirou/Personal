@@ -68,8 +68,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $result = pg_query_params($conn, $sql, [$title, $description, $thumbnail, $video_url, $id]);
 
     if ($result) {
-        echo "<p>Project updated successfully.</p>";
-        header("Location: /view?id=$id");
+        echo "<script>alert('Project updated successfully.');</script>";
+        header("Location: /view/$id");
         exit;
     } else {
         echo "<p>Error: " . pg_last_error($conn) . "</p>";

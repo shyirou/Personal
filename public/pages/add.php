@@ -18,7 +18,7 @@
         <div class="container">
             <div class="project-detail">
                 <h1 class="display-4">Add New Project</h1>
-                <form action="/pages/add.php" method="POST" enctype="multipart/form-data">
+                <form action="/procces/add.php" method="POST" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="title" class="form-label">Title</label>
                         <input type="text" class="form-control" id="title" name="title" required>
@@ -45,6 +45,5 @@
     <footer class="footer">
         <a>&copy; 2025 My Portfolio. All rights reserved.</a>
     </footer>
-    <script src="/js/fade.js"></script>
 </body>
 </html>

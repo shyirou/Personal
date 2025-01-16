@@ -1,5 +1,10 @@
 <?php
 
+require __DIR__ . '/../vendor/autoload.php';
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv->load(); 
+
 $host = $_ENV['PG_HOST'];
 $port = $_ENV['PG_PORT'];
 $db = $_ENV['PG_DB'];
